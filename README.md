@@ -14,6 +14,9 @@ This program is designed to recognize both handwritten and printed text using Op
     Run the program: python textgenius.py
     The recognized text will be printed to the console.
 
+## Additional Output
+<img src="https://github.com/AzizFacilex/TextGenius/blob/main/content/result.png?raw=true" width="70%" height="70%">
+
 ## Supported Languages
 
 The program currently supports text recognition in English, Spanish, French, German, Italian, Dutch, Portuguese, and Russian.
