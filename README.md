@@ -1,7 +1,7 @@
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)[![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)
-# Handwritten and Printed Text Recognition
+# Printed Text Recognition
 
-This program is designed to recognize both handwritten and printed text using Optical Character Recognition (OCR) technology. It takes an image of text as input and outputs the corresponding text in a machine-readable format.
+This program is designed to recognize printed text using Optical Character Recognition (OCR) technology. It takes an image of text as input and outputs the corresponding text in a machine-readable format.
 
 ## Installation
 
