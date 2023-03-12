@@ -3,8 +3,12 @@ import numpy as np
 from flask import Flask, request, jsonify
 import pytesseract
 import string
+import os
+import openai
 
 app = Flask(__name__)
+openai.api_key = os.getenv(
+    "GPT_API")
 
 
 def extractAndSort(image):
@@ -30,9 +34,39 @@ def rotate(image, lines):
     return cv2.warpAffine(image, rotation_matrix, (cols, rows))
 
 
+def summarize(text):
+    return openai.Completion.create(
+        model="text-davinci-003",
+        prompt="Summarize:\n{text}",
+        temperature=0.3,
+        max_tokens=4000-len(text),
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+
+
+def sendToGpt(summaryText, jobText):
+    if len(summaryText) > 1000:
+        summaryText = summarize(summaryText)
+    if len(jobText) > 1000:
+        jobText = summarize(summaryText)
+
+    return openai.Completion.create(
+        model="text-davinci-003",
+        prompt="Generate a motivation letter from this summary and job-offer:\nSummary: {summaryText}\nJob-Offer:{jobText}",
+        temperature=0.3,
+        max_tokens=4000-(len(summaryText)+len(jobText)),
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+
+
 @app.route('/convert', methods=['POST'])
 def convert():
     file = request.files['image']
+    # summaryText = request.form['text']
 
     image_data = np.fromstring(file.read(), np.uint8)
     image = cv2.imdecode(image_data, cv2.IMREAD_COLOR)
@@ -70,7 +104,13 @@ def convert():
                         for word in max_list['text'] if word.strip() != '']
     max_list['text'] = [
         word for word in max_list['text'] if not all(char in string.punctuation for char in word)]
-    response = {'text': ' '.join(max_list['text'])}
+
+    jobText = ' '.join(max_list['text'])
+
+    # TODO
+    # gptResponse = sendToGpt(summaryText, jobText)
+
+    response = {'text': jobText}
     return jsonify(response)
 
 
