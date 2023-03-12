@@ -44,7 +44,6 @@ def convert():
 
     jobText = ' '.join(max_list['text'])
 
-    # TODO
     # gptResponse = sendToGpt(summaryText, jobText)
 
     response = {'text': jobText}
