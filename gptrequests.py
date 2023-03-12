@@ -21,7 +21,7 @@ def sendToGpt(summaryText, jobText):
     if len(summaryText) > 1000:
         summaryText = summarize(summaryText)
     if len(jobText) > 1000:
-        jobText = summarize(summaryText)
+        jobText = summarize(jobText)
     prom = "Generate a motivation letter from this summary and job-offer:\nSummary:{summaryText}\nJob-Offer:{jobText}"
     return openai.Completion.create(
         model="text-davinci-003",
