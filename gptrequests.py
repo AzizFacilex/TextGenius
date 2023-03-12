@@ -7,7 +7,7 @@ openai.api_key = os.getenv(
 
 def summarize(text):
     return openai.Completion.create(
-        model="text-davinci-003",
+        model="gpt-3.5-turbo",
         prompt="Summarize:\n{text}",
         temperature=0.3,
         max_tokens=4000-len(text),
@@ -24,7 +24,7 @@ def sendToGpt(summaryText, jobText):
         jobText = summarize(jobText)
     prom = "Generate a motivation letter from this summary and job-offer:\nSummary:{summaryText}\nJob-Offer:{jobText}"
     return openai.Completion.create(
-        model="text-davinci-003",
+        model="gpt-3.5-turbo",
         prompt=prom,
         temperature=0.3,
         max_tokens=4000-len(prom),
